@@ -17,6 +17,7 @@ class ProductController {
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
+   * @param {object} ctx.pagination
    */
   async index({ request, response, pagination }) {
     const name = request.input('name')
@@ -62,9 +63,8 @@ class ProductController {
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
-  async show({ params: { id }, request, response, view }) {
+  async show({ params: { id }, request, response }) {
     const product = await Product.findOrFail(id)
     return response.send(product)
   }
