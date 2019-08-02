@@ -26,6 +26,25 @@ const str_random = async (length = 40) => {
   return string
 }
 
+/**
+ * Move um único arquivo para o caminho especificado, se nenhum for especificado
+ * então 'public/uploads' será utilizado.
+ * @param { FileJar } file o arquivo a ser gerenciado
+ * @param { string } path o caminho para onde o arquivo deve ser movido
+ */
+const manage_single_upload = async (file, path = null) => {
+  path = path ? path : Helpers.publicPath('uploads')
+
+  const random_name = await str_random(30)
+  let filename = `${new Date().getTime()}-${random_name}.${file.subtype}`
+
+  await file.move(path, {
+    name: filename
+  })
+
+  return file
+}
+
 module.exports = {
   str_random
 }
